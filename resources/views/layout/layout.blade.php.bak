@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Matrix lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Matrix admin lite design, Matrix admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+        content="Matrix Admin Lite Free Version is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Halaman - @yield('title')</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon.ico') }}">
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/float-chart.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/remodal.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/remodal-default-theme.css') }}" rel="stylesheet">
+
+    <style>
+        :root {
+            --brand-navy: #003b73;
+            --brand-blue: #0077c0;
+            --brand-teal: #059669;
+            --brand-green: #10b981;
+            --brand-mint: #f0fdf4;
+            --brand-soft-blue: #f0f9ff;
+            --card-border: #b9e6fe;
+            --sidebar-bg: #00315c;
+            --sidebar-hover: #004b87;
+            --text-heading: #002b54;
+            --text-muted: #52677d;
+        }
+
+        body, #main-wrapper, .card, table, input, button, select {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif !important;
+            color: #334155;
+        }
+
+        body {
+            background-color: #f1f7fc !important;
+        }
+
+        /* Topbar Header Bersih dengan Style Kartu Elegan */
+        .topbar {
+            background: #ffffff !important;
+            border-bottom: 3px solid transparent !important;
+            border-image: linear-gradient(90deg, #0077c0 0%, #059669 100%) 1 !important;
+            box-shadow: 0 4px 14px rgba(0, 59, 115, 0.08) !important;
+        }
+        .navbar-header {
+            background: linear-gradient(135deg, #002b54 0%, #004077 100%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar Elegan Nuansa Kartu: Deep Navy dengan aksen Teal/Emerald */
+        .left-sidebar {
+            background: linear-gradient(180deg, #002b54 0%, #003b73 100%) !important;
+            box-shadow: 3px 0 16px rgba(0, 43, 84, 0.15);
+            border-right: 1px solid rgba(0, 119, 192, 0.2);
+        }
+        .sidebar-nav ul .sidebar-item .sidebar-link {
+            border-radius: 10px;
+            margin: 4px 14px;
+            padding: 10px 14px;
+            color: #cbe3f7 !important;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .sidebar-nav ul .sidebar-item .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        .sidebar-nav ul .sidebar-item.selected > .sidebar-link,
+        .sidebar-nav ul .sidebar-item .sidebar-link.active {
+            background: linear-gradient(135deg, #0077c0 0%, #059669 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 6px 14px rgba(0, 119, 192, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-weight: 700;
+        }
+        .sidebar-nav ul .sidebar-item .sidebar-link i {
+            color: #72b7e5 !important;
+            font-size: 1.05rem;
+            margin-right: 10px;
+        }
+        .sidebar-nav ul .sidebar-item.selected > .sidebar-link i,
+        .sidebar-nav ul .sidebar-item .sidebar-link:hover i {
+            color: #ffffff !important;
+        }
+
+        .page-breadcrumb {
+            background: transparent;
+            padding: 16px 30px 4px 30px;
+        }
+        .page-wrapper {
+            background: #f1f7fc !important;
+            background-image: radial-gradient(#dbeafe 0.85px, transparent 0.85px), radial-gradient(#ecfdf5 0.85px, #f1f7fc 0.85px);
+            background-size: 34px 34px;
+            background-position: 0 0, 17px 17px;
+            min-height: 100vh;
+        }
+        .container-fluid {
+            padding: 18px 30px;
+        }
+
+        /* CARD TEMA KARTU BEROBAT (CR80 LOOK & FEEL) */
+        .card {
+            border-radius: 14px !important;
+            border: 1.5px solid #d4ebf9 !important;
+            box-shadow: 0 10px 25px rgba(0, 59, 115, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+            background: #ffffff !important;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0077c0 0%, #10b981 100%);
+            z-index: 2;
+        }
+        .card-header {
+            background: linear-gradient(180deg, #f8fcff 0%, #ffffff 100%) !important;
+            border-bottom: 1.5px solid #e7f2fa !important;
+            padding: 16px 22px !important;
+        }
+        .card-body {
+            padding: 22px !important;
+        }
+
+        /* Tombol & Aksen Sesuai Brand & Tema Kartu */
+        .btn {
+            border-radius: 9px !important;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            padding: 8px 16px !important;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0077c0 0%, #00568c 100%) !important;
+            border-color: #00568c !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(0, 119, 192, 0.28);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #00568c 0%, #003b73 100%) !important;
+            box-shadow: 0 6px 16px rgba(0, 59, 115, 0.38);
+            transform: translateY(-1px);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            border-color: #059669 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
+        }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+            transform: translateY(-1px);
+        }
+        .btn-outline-primary {
+            border: 1.5px solid #0077c0 !important;
+            color: #0077c0 !important;
+            background: #ffffff !important;
+        }
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, #0077c0 0%, #00568c 100%) !important;
+            color: #ffffff !important;
+        }
+
+        /* Tabel Nuansa Kartu Pasien */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        .table thead th {
+            background: #f0f7fd !important;
+            color: #003b73 !important;
+            font-weight: 700 !important;
+            border-bottom: 2px solid #bce1f8 !important;
+            border-top: none !important;
+            font-size: 0.8rem !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 13px 15px !important;
+        }
+        .table tbody td {
+            padding: 13px 15px !important;
+            border-bottom: 1px solid #eef5fc !important;
+            font-size: 0.88rem;
+            color: #334155;
+            vertical-align: middle;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f4faff !important;
+        }
+
+        /* Badge Rekam Medis Elegan */
+        .badge-rm {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-family: monospace, 'Courier New', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #bae6fd;
+            display: inline-block;
+        }
+
+        /* Footer bergaya kartu */
+        footer.footer {
+            background: transparent !important;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.82rem;
+            padding: 16px 20px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+
+        {{-- HEADER --}}
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <a class="navbar-brand d-flex align-items-center px-3" href="/">
+                        <div class="bg-white rounded-circle p-1 me-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 44px; height: 44px; overflow: hidden; border: 2px solid #34d399;">
+                            <img src="{{ asset('img/klinik.jpeg') }}" alt="Logo Klinik" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="d-flex flex-column text-start">
+                            <span class="fw-extrabold text-white fs-6 lh-1" style="letter-spacing: 0.5px; font-weight: 800;">PERAWAT LUKA</span>
+                            <span class="small" style="font-size: 0.72rem; font-weight: 700; color: #34d399 !important; letter-spacing: 0.3px;">PRAKTIK MANDIRI WELLY</span>
+                        </div>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item d-none d-lg-block"><a
+                                class="nav-link sidebartoggler waves-effect waves-light text-secondary" href="javascript:void(0)"
+                                data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                        <li class="nav-item d-flex align-items-center ms-3">
+                            <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill fw-normal">
+                                <i class="fas fa-circle text-success me-1" style="font-size: 8px;"></i> Pelayanan Klinik Aktif
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav float-end align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark waves-effect waves-dark d-flex align-items-center gap-2"
+                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <div class="bg-light text-secondary rounded-circle border d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <div class="d-none d-md-block text-start lh-1">
+                                    <div class="fw-bold text-dark small">{{ auth()->user()->name ?? 'Petugas Klinik' }}</div>
+                                    <span class="badge bg-secondary-subtle text-secondary small" style="font-size: 0.65rem; text-transform: uppercase;">{{ auth()->user()->role ?? 'admin' }}</span>
+                                </div>
+                                <i class="fa fa-angle-down text-muted small ms-1"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2" aria-labelledby="navbarDropdown">
+                                <li class="px-3 py-2 border-bottom">
+                                    <div class="fw-bold text-dark">{{ auth()->user()->name ?? 'Petugas' }}</div>
+                                    <small class="text-muted">{{ auth()->user()->email }}</small>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('formPasien') }}">
+                                        <i class="fas fa-user-plus text-primary me-2"></i> Pendaftaran Pasien
+                                    </a>
+                                </li>
+                                @can('role', ['admin'])
+                                    <li>
+                                        <a class="dropdown-item py-2" href="{{ route('addUser') }}">
+                                            <i class="fas fa-users-cog text-info me-2"></i> Manajemen Akun Petugas
+                                        </a>
+                                    </li>
+                                @endcan
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('mesinLogout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item py-2 text-danger">
+                                            <i class="fa fa-power-off me-2"></i> Keluar Sistem (Logout)
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        {{-- //HEADER --}}
+
+        {{-- MENU KIRI (SIDEBAR SIMRS / KLINIK) --}}
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="pt-3">
+                        <li class="nav-small-cap text-uppercase text-muted px-4 py-2" style="font-size: 0.7rem; letter-spacing: 0.8px;">
+                            <i class="fas fa-ellipsis-h me-1"></i> Pelayanan Pasien
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{ route('masterPasien.index') }}" aria-expanded="false">
+                                <i class="fas fa-address-book text-success"></i>
+                                <span class="hide-menu">Master Pasien (No. RM)</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="/" aria-expanded="false">
+                                <i class="fas fa-procedures text-info"></i>
+                                <span class="hide-menu">Registrasi & Kunjungan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{ route('formPasien') }}" aria-expanded="false">
+                                <i class="fas fa-user-plus text-primary"></i>
+                                <span class="hide-menu">Input Kunjungan Baru</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-small-cap text-uppercase text-muted px-4 py-2 mt-2" style="font-size: 0.7rem; letter-spacing: 0.8px;">
+                            <i class="fas fa-ellipsis-h me-1"></i> Layanan Khusus
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{ route('formPadepokan') }}" aria-expanded="false">
+                                <i class="fas fa-clinic-medical text-warning"></i>
+                                <span class="hide-menu">Padepokan Cettol</span>
+                            </a>
+                        </li>
+
+                        @can('role', ['admin'])
+                            <li class="nav-small-cap text-uppercase text-muted px-4 py-2 mt-2" style="font-size: 0.7rem; letter-spacing: 0.8px;">
+                                <i class="fas fa-ellipsis-h me-1"></i> Pengaturan Sistem
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark" href="{{ route('addUser') }}" aria-expanded="false">
+                                    <i class="fas fa-users-cog text-success"></i>
+                                    <span class="hide-menu">Manajemen Petugas</span>
+                                </a>
+                            </li>
+                        @endcan
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        {{-- //MENU KIRI --}}
+
+        {{-- MAIN KONTEN --}}
+        <div class="page-wrapper">
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <div class="ms-auto text-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                {{-- KONETEN --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @yield('konten') {{-- ININ KONNNNETTTTTTTTTTTT  --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- //KONTEN --}}
+            </div>
+            <footer class="footer text-center">
+                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                    <div>
+                        <strong>Praktik Mandiri Perawat Luka Welly</strong> &copy; {{ date('Y') }} — Welly Prestikasari, S.Kep., Ners., M.Kep.
+                    </div>
+                    <div class="text-muted small fst-italic">
+                        "Merawat Luka, Mengembalikan Harapan"
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        {{-- //MAIN KONTEN --}}
+
+    </div>
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/sparkline.js') }}"></script>
+    <script src="{{ asset('js/waves.js') }}"></script>
+    <script src="{{ asset('js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/custom.min.js') }}"></script>
+    <script src="{{ asset('js/excanvas.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.time.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.stack.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.crosshair.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{ asset('js/chart-page-init.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/remodal.js') }}"></script>
+
+    @yield('scripts')
+
+    <script>
+        $('#zero_config').DataTable();
+
+        $(document).on('opening', '.remodal', function() {
+            console.log('opening');
+        });
+
+        $(document).on('opened', '.remodal', function() {
+            console.log('opened');
+        });
+
+        $(document).on('closing', '.remodal', function(e) {
+            console.log('closing' + (e.reason ? ', reason: ' + e.reason : ''));
+        });
+
+        $(document).on('closed', '.remodal', function(e) {
+            console.log('closed' + (e.reason ? ', reason: ' + e.reason : ''));
+        });
+
+        $(document).on('confirmation', '.remodal', function() {
+            console.log('confirmation');
+        });
+
+        $(document).on('cancellation', '.remodal', function() {
+            console.log('cancellation');
+        });
+        $('[data-remodal-id=modal2]').remodal({
+            modifier: 'with-red-theme'
+        });
+
+        function getCurrentDateTime() {
+            var currentDateTime = new Date();
+            var year = currentDateTime.getFullYear();
+            var month = (currentDateTime.getMonth() + 1).toString().padStart(2, "0");
+            var day = currentDateTime.getDate().toString().padStart(2, "0");
+            var hours = currentDateTime.getHours().toString().padStart(2, "0");
+            var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+            var dateString = year + "-" + month + "-" + day;
+            var timeString = hours + ":" + minutes;
+            document.getElementById("date").value = dateString;
+            document.getElementById("time").value = timeString;
+        }
+        window.onload = getCurrentDateTime;
+    </script>
+</body>
+
+</html>

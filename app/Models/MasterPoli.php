@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class MasterPoli extends Model
+{
+    use HasFactory;
+    protected $table = 'master_poli';
+    protected $fillable = ['kd_poli', 'nm_poli', 'status'];
+}
+
