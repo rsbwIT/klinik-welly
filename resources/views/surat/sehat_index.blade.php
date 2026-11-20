@@ -209,7 +209,7 @@
                             <div class="col-6">
                                 <div class="form-group mb-2">
                                     <label class="small font-weight-bold text-dark">Kota Terbit</label>
-                                    <input type="text" name="lokasi_surat" class="form-control form-control-sm" value="Bandar Lampung">
+                                    <input type="text" name="lokasi_surat" class="form-control form-control-sm" value="Pesawaran">
                                 </div>
                             </div>
                         </div>

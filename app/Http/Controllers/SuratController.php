@@ -30,6 +30,9 @@ class SuratController extends Controller
         $totalPelimpahan = DB::table('pelimpahan_wewenang')->count();
         $totalSakit = DB::table('surat_sakit')->count();
         $totalSehat = DB::table('surat_sehat')->count();
+        $totalObservasi = DB::table('lembar_observasi_khusus')->count();
+        $totalPuskesmas = DB::table('pelaporan_puskesmas')->count();
+        $totalBukuMerja = DB::table('buku_merja_klien')->count();
 
         $latestRujukan = DB::table('surat_rujukan')->orderBy('id', 'desc')->limit(5)->get();
         $latestEkspedisi = DB::table('buku_ekspedisi')->orderBy('id', 'desc')->limit(5)->get();
@@ -45,6 +48,9 @@ class SuratController extends Controller
             'totalPelimpahan' => $totalPelimpahan,
             'totalSakit' => $totalSakit,
             'totalSehat' => $totalSehat,
+            'totalObservasi' => $totalObservasi,
+            'totalPuskesmas' => $totalPuskesmas,
+            'totalBukuMerja' => $totalBukuMerja,
             'latestRujukan' => $latestRujukan,
             'latestEkspedisi' => $latestEkspedisi,
             'latestAskep' => $latestAskep,
@@ -206,7 +212,21 @@ class SuratController extends Controller
         }
         $data = $query->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->paginate(15);
 
-        return view('surat.askep_index', ['data' => $data]);
+        // Cek jika diarahkan dari Klik Kanan Pasien (query param pasien_id / hashid)
+        $selectedPasien = null;
+        if ($request->filled('pasien_id')) {
+            $pId = $request->pasien_id;
+            if (!is_numeric($pId)) {
+                $dec = $this->hashids->decodeHex($pId);
+                $pId = $dec ? $dec : $pId;
+            }
+            $selectedPasien = Pasien::find($pId);
+        }
+
+        return view('surat.askep_index', [
+            'data' => $data,
+            'selectedPasien' => $selectedPasien
+        ]);
     }
 
     public function askepStore(Request $request)
@@ -511,6 +531,232 @@ class SuratController extends Controller
     {
         DB::table('surat_sehat')->where('id', $id)->delete();
         return redirect()->route('surat.sehat.index')->with('success', 'Surat keterangan sehat berhasil dihapus!');
+    }
+
+    // ==========================================
+    // 7. LEMBAR OBSERVASI KHUSUS
+    // ==========================================
+    public function observasiIndex(Request $request)
+    {
+        $query = DB::table('lembar_observasi_khusus');
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where(function($w) use ($q) {
+                $w->where('nama_pasien', 'LIKE', "%{$q}%")
+                  ->orWhere('no_rawat', 'LIKE', "%{$q}%");
+            });
+        }
+        $data = $query->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->paginate(15);
+
+        $selectedPasien = null;
+        if ($request->filled('pasien_id')) {
+            $pId = $request->pasien_id;
+            if (!is_numeric($pId)) {
+                $dec = $this->hashids->decodeHex($pId);
+                $pId = $dec ? $dec : $pId;
+            }
+            $selectedPasien = Pasien::find($pId);
+        }
+
+        return view('surat.observasi_index', [
+            'data' => $data,
+            'selectedPasien' => $selectedPasien
+        ]);
+    }
+
+    public function observasiStore(Request $request)
+    {
+        $request->validate(['nama_pasien' => 'required']);
+
+        $id = DB::table('lembar_observasi_khusus')->insertGetId([
+            'pasien_id' => $request->pasien_id,
+            'no_rawat' => $request->no_rawat,
+            'no_rkm_medis' => $request->no_rkm_medis,
+            'nama_pasien' => $request->nama_pasien,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'umur' => $request->umur,
+            'alamat' => $request->alamat,
+            'tanggal' => $request->tanggal ?: date('Y-m-d'),
+            'jam' => $request->jam ?: date('H:i:s'),
+            'kesadaran' => $request->kesadaran ?: 'Compos Mentis',
+            'gcs' => $request->gcs,
+            'td' => $request->td,
+            'hr' => $request->hr,
+            'rr' => $request->rr,
+            'suhu' => $request->suhu,
+            'spo2' => $request->spo2,
+            'cairan_infus' => $request->cairan_infus,
+            'tetesan_infus' => $request->tetesan_infus,
+            'urine_output' => $request->urine_output,
+            'kondisi_luka' => $request->kondisi_luka,
+            'tindakan_terapi' => $request->tindakan_terapi,
+            'catatan_perkembangan' => $request->catatan_perkembangan,
+            'petugas' => $request->petugas ?: 'Welly Prestikasari, S.Kep., Ners., M.Kep.',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        TrackerHelper::log('Persuratan', 'Catat Observasi Khusus', "Mencatat lembar observasi khusus pasien: {$request->nama_pasien}");
+        return redirect()->route('surat.observasi.index')->with('success', 'Lembar Observasi Khusus berhasil disimpan!');
+    }
+
+    public function observasiCetak($id)
+    {
+        $obs = DB::table('lembar_observasi_khusus')->where('id', $id)->first();
+        if (!$obs) abort(404);
+        return view('surat.observasi_cetak', ['obs' => $obs]);
+    }
+
+    public function observasiDestroy($id)
+    {
+        DB::table('lembar_observasi_khusus')->where('id', $id)->delete();
+        return redirect()->route('surat.observasi.index')->with('success', 'Lembar observasi berhasil dihapus!');
+    }
+
+    // ==========================================
+    // 8. FORM PELAPORAN KE PUSKESMAS
+    // ==========================================
+    public function puskesmasIndex(Request $request)
+    {
+        $query = DB::table('pelaporan_puskesmas');
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where(function($w) use ($q) {
+                $w->where('no_laporan', 'LIKE', "%{$q}%")
+                  ->orWhere('nama_puskesmas', 'LIKE', "%{$q}%");
+            });
+        }
+        $data = $query->orderBy('tanggal_lapor', 'desc')->orderBy('id', 'desc')->paginate(15);
+
+        // Auto hitung statistik bulan berjalan
+        $startMonth = date('Y-m-01');
+        $endMonth = date('Y-m-t');
+        $autoBaru = Pasien::whereBetween('tanggal_masuk', [$startMonth, $endMonth])->where('status_poli', 'Baru')->count();
+        $autoLama = Pasien::whereBetween('tanggal_masuk', [$startMonth, $endMonth])->where('status_poli', 'Lama')->count();
+        $autoTotal = Pasien::whereBetween('tanggal_masuk', [$startMonth, $endMonth])->count();
+
+        $defaultNoLaporan = sprintf("LAP-PKM/%s/%03d", date('Y/m'), DB::table('pelaporan_puskesmas')->count() + 1);
+
+        return view('surat.puskesmas_index', [
+            'data' => $data,
+            'autoBaru' => $autoBaru,
+            'autoLama' => $autoLama,
+            'autoTotal' => $autoTotal,
+            'defaultNoLaporan' => $defaultNoLaporan
+        ]);
+    }
+
+    public function puskesmasStore(Request $request)
+    {
+        $request->validate(['nama_puskesmas' => 'required', 'no_laporan' => 'required']);
+
+        $id = DB::table('pelaporan_puskesmas')->insertGetId([
+            'no_laporan' => $request->no_laporan,
+            'nama_puskesmas' => $request->nama_puskesmas,
+            'bulan_tahun' => $request->bulan_tahun ?: date('F Y'),
+            'tanggal_lapor' => $request->tanggal_lapor ?: date('Y-m-d'),
+            'total_pasien_baru' => (int) $request->total_pasien_baru,
+            'total_pasien_lama' => (int) $request->total_pasien_lama,
+            'total_kunjungan' => (int) $request->total_kunjungan,
+            'kasus_dm_luka' => (int) $request->kasus_dm_luka,
+            'kasus_hipertensi' => (int) $request->kasus_hipertensi,
+            'kasus_infeksi' => (int) $request->kasus_infeksi,
+            'kasus_bedah_minor' => (int) $request->kasus_bedah_minor,
+            'kasus_lainnya' => (int) $request->kasus_lainnya,
+            'pasien_rujuk' => (int) $request->pasien_rujuk,
+            'keterangan' => $request->keterangan,
+            'penanggung_jawab' => $request->penanggung_jawab ?: 'Welly Prestikasari, S.Kep., Ners., M.Kep.',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        TrackerHelper::log('Persuratan', 'Laporan Puskesmas', "Menyimpan laporan bulanan puskesmas: {$request->no_laporan}");
+        return redirect()->route('surat.puskesmas.index')->with('success', 'Formulir Pelaporan Puskesmas berhasil disimpan!');
+    }
+
+    public function puskesmasCetak($id)
+    {
+        $lap = DB::table('pelaporan_puskesmas')->where('id', $id)->first();
+        if (!$lap) abort(404);
+        return view('surat.puskesmas_cetak', ['lap' => $lap]);
+    }
+
+    public function puskesmasDestroy($id)
+    {
+        DB::table('pelaporan_puskesmas')->where('id', $id)->delete();
+        return redirect()->route('surat.puskesmas.index')->with('success', 'Laporan puskesmas berhasil dihapus!');
+    }
+
+    // ==========================================
+    // 9. BUKU MERJA KLIEN
+    // ==========================================
+    public function bukuMerjaIndex(Request $request)
+    {
+        $query = DB::table('buku_merja_klien');
+        if ($request->filled('q')) {
+            $q = $request->q;
+            $query->where(function($w) use ($q) {
+                $w->where('nama_klien', 'LIKE', "%{$q}%")
+                  ->orWhere('no_rawat', 'LIKE', "%{$q}%")
+                  ->orWhere('jenis_luka', 'LIKE', "%{$q}%");
+            });
+        }
+        $data = $query->orderBy('tgl_mulai_rawat', 'desc')->orderBy('id', 'desc')->paginate(15);
+
+        $selectedPasien = null;
+        if ($request->filled('pasien_id')) {
+            $pId = $request->pasien_id;
+            if (!is_numeric($pId)) {
+                $dec = $this->hashids->decodeHex($pId);
+                $pId = $dec ? $dec : $pId;
+            }
+            $selectedPasien = Pasien::find($pId);
+        }
+
+        return view('surat.bukumerja_index', [
+            'data' => $data,
+            'selectedPasien' => $selectedPasien
+        ]);
+    }
+
+    public function bukuMerjaStore(Request $request)
+    {
+        $request->validate(['nama_klien' => 'required', 'tgl_mulai_rawat' => 'required']);
+
+        $id = DB::table('buku_merja_klien')->insertGetId([
+            'pasien_id' => $request->pasien_id,
+            'no_rawat' => $request->no_rawat,
+            'no_rkm_medis' => $request->no_rkm_medis,
+            'nama_klien' => $request->nama_klien,
+            'tgl_mulai_rawat' => $request->tgl_mulai_rawat,
+            'tgl_selesai_rawat' => $request->tgl_selesai_rawat,
+            'diagnosa_medis' => $request->diagnosa_medis,
+            'jenis_luka' => $request->jenis_luka,
+            'derajat_luka' => $request->derajat_luka,
+            'tujuan_target_perawatan' => $request->tujuan_target_perawatan,
+            'evaluasi_akhir' => $request->evaluasi_akhir,
+            'status_perawatan' => $request->status_perawatan ?: 'Aktif / Masih Rawat',
+            'catatan' => $request->catatan,
+            'penanggung_jawab' => $request->penanggung_jawab ?: 'Welly Prestikasari, S.Kep., Ners., M.Kep.',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        TrackerHelper::log('Persuratan', 'Buku Merja Klien', "Mencatat buku merja klien: {$request->nama_klien}");
+        return redirect()->route('surat.bukumerja.index')->with('success', 'Catatan Buku Merja Klien berhasil disimpan!');
+    }
+
+    public function bukuMerjaCetak($id)
+    {
+        $merja = DB::table('buku_merja_klien')->where('id', $id)->first();
+        if (!$merja) abort(404);
+        return view('surat.bukumerja_cetak', ['merja' => $merja]);
+    }
+
+    public function bukuMerjaDestroy($id)
+    {
+        DB::table('buku_merja_klien')->where('id', $id)->delete();
+        return redirect()->route('surat.bukumerja.index')->with('success', 'Data buku merja klien berhasil dihapus!');
     }
 }
 

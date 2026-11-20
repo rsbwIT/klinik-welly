@@ -944,6 +944,24 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('surat.observasi.index') }}" class="nav-link {{ request()->is('surat/observasi*') ? 'active' : '' }}">
+                                        <i class="fas fa-notes-medical nav-icon text-info"></i>
+                                        <p>Lembar Observasi Khusus</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('surat.bukumerja.index') }}" class="nav-link {{ request()->is('surat/buku-merja*') ? 'active' : '' }}">
+                                        <i class="fas fa-book nav-icon text-primary"></i>
+                                        <p>Buku Merja Klien</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('surat.puskesmas.index') }}" class="nav-link {{ request()->is('surat/laporan-puskesmas*') ? 'active' : '' }}">
+                                        <i class="fas fa-hospital nav-icon text-success"></i>
+                                        <p>Laporan ke Puskesmas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('surat.pelimpahan.index') }}" class="nav-link {{ request()->is('surat/pelimpahan*') ? 'active' : '' }}">
                                         <i class="fas fa-file-signature nav-icon text-warning"></i>
                                         <p>Pelimpahan Wewenang</p>

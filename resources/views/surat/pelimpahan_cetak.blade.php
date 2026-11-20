@@ -110,7 +110,7 @@
             <h2>PRAKTIK MANDIRI KEPERAWATAN WELLY</h2>
             <h3>Welly Prestikasari, S.Kep., Ners., M.Kep., CWCCA</h3>
             <p>Nomor SIPP: 503/36/SIPP/IV.14/VIII/2021 &bull; Nomor STR: 180152120-3129482</p>
-            <p>Alamat Praktik: Bandar Lampung &bull; Telp/WA: 0857-6843-1011</p>
+            <p>Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran &bull; Telp. 0813 6864 0404</p>
         </div>
         <img src="{{ asset('img/klinik.jpeg') }}" class="kop-logo-klinik" alt="Logo Klinik Welly">
     </div>

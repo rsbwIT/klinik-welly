@@ -38,7 +38,7 @@
         <div class="kop-text">
             <h2>PRAKTIK MANDIRI PERAWAT LUKA & RAWAT JALAN</h2>
             <h4>KLINIK PERAWATAN LUKA MODERN WELLY</h4>
-            <p>Jl. Raya Kesehatan No. 12, Bandar Lampung &bull; Telp / WhatsApp: 0813-6864-0404</p>
+            <p>Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran &bull; Telp / WhatsApp: 0813 6864 0404</p>
         </div>
     </div>
 

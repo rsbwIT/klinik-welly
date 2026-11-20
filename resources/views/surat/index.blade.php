@@ -15,39 +15,86 @@
                 <small class="text-muted">Praktik Mandiri Keperawatan Welly &bull; Kelola Surat Rujukan, Ekspedisi, Askep, dan Pelimpahan Wewenang</small>
             </div>
         </div>
-        <div class="d-flex gap-2 mt-2 mt-md-0">
-            <a href="{{ route('surat.rujukan.index') }}" class="btn btn-sm btn-danger font-weight-bold shadow-2xs mr-1">
+        <div class="d-flex gap-2 mt-2 mt-md-0 flex-wrap">
+            <a href="{{ route('surat.rujukan.index') }}" class="btn btn-sm btn-danger font-weight-bold shadow-2xs mr-1 mb-1">
                 <i class="fas fa-paper-plane mr-1"></i> Buat Surat Rujukan
             </a>
-            <a href="{{ route('surat.askep.index') }}" class="btn btn-sm btn-info font-weight-bold shadow-2xs mr-1">
+            <a href="{{ route('surat.askep.index') }}" class="btn btn-sm btn-info font-weight-bold shadow-2xs mr-1 mb-1">
                 <i class="fas fa-file-medical-alt mr-1"></i> Form Askep
             </a>
-            <a href="{{ route('surat.pelimpahan.index') }}" class="btn btn-sm btn-warning font-weight-bold shadow-2xs mr-1 text-white">
-                <i class="fas fa-file-signature mr-1"></i> Pelimpahan Wewenang
+            <a href="{{ route('surat.observasi.index') }}" class="btn btn-sm btn-primary font-weight-bold shadow-2xs mr-1 mb-1">
+                <i class="fas fa-notes-medical mr-1"></i> Observasi Khusus
             </a>
-            <a href="{{ route('surat.ekspedisi.index') }}" class="btn btn-sm btn-success font-weight-bold shadow-2xs">
-                <i class="fas fa-book mr-1"></i> Buku Ekspedisi
+            <a href="{{ route('surat.bukumerja.index') }}" class="btn btn-sm btn-warning font-weight-bold shadow-2xs mr-1 mb-1 text-white">
+                <i class="fas fa-book mr-1"></i> Buku Merja Klien
+            </a>
+            <a href="{{ route('surat.puskesmas.index') }}" class="btn btn-sm btn-success font-weight-bold shadow-2xs mr-1 mb-1">
+                <i class="fas fa-hospital mr-1"></i> Laporan Puskesmas
+            </a>
+            <a href="{{ route('surat.pelimpahan.index') }}" class="btn btn-sm btn-secondary font-weight-bold shadow-2xs mr-1 mb-1">
+                <i class="fas fa-file-signature mr-1"></i> Pelimpahan
+            </a>
+            <a href="{{ route('surat.ekspedisi.index') }}" class="btn btn-sm btn-dark font-weight-bold shadow-2xs mb-1">
+                <i class="fas fa-book-reader mr-1"></i> Ekspedisi
             </a>
         </div>
     </div>
 
     <!-- STATISTIK KARTU SURAT -->
     <div class="row mb-3">
-        <div class="col-md-3 col-sm-6 mb-2">
+        <div class="col-md-4 col-sm-6 mb-3">
             <div class="card border-0 shadow-sm rounded-3 bg-white p-3 h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Surat Rujukan Pasien</span>
-                        <h3 class="font-weight-bold text-danger mb-0 mt-1">{{ $totalRujukan }}</h3>
-                        <small class="text-muted">Rujukan RS / PKM</small>
+                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Lembar Observasi Khusus</span>
+                        <h3 class="font-weight-bold text-primary mb-0 mt-1">{{ $totalObservasi }}</h3>
+                        <small class="text-muted">Monitoring TTV & Cairan Infus</small>
                     </div>
-                    <div class="p-3 rounded-circle bg-danger bg-opacity-10 text-danger" style="font-size: 20px;">
-                        <i class="fas fa-paper-plane"></i>
+                    <div class="p-3 rounded-circle bg-primary bg-opacity-10 text-primary" style="font-size: 20px;">
+                        <i class="fas fa-notes-medical"></i>
                     </div>
                 </div>
                 <hr class="my-2">
-                <a href="{{ route('surat.rujukan.index') }}" class="small text-danger font-weight-bold text-decoration-none">
-                    Kelola Rujukan <i class="fas fa-arrow-right ml-1"></i>
+                <a href="{{ route('surat.observasi.index') }}" class="small text-primary font-weight-bold text-decoration-none">
+                    Buka Observasi Khusus <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-white p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Buku Merja Klien</span>
+                        <h3 class="font-weight-bold text-warning mb-0 mt-1">{{ $totalBukuMerja }}</h3>
+                        <small class="text-muted">Rekam Jejak Evaluasi Klien Luka</small>
+                    </div>
+                    <div class="p-3 rounded-circle bg-warning bg-opacity-10 text-warning" style="font-size: 20px;">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <a href="{{ route('surat.bukumerja.index') }}" class="small text-warning font-weight-bold text-decoration-none">
+                    Buka Buku Merja <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-3">
+            <div class="card border-0 shadow-sm rounded-3 bg-white p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Laporan Puskesmas</span>
+                        <h3 class="font-weight-bold text-success mb-0 mt-1">{{ $totalPuskesmas }}</h3>
+                        <small class="text-muted">Rekap Bulanan Kunjungan & Kasus</small>
+                    </div>
+                    <div class="p-3 rounded-circle bg-success bg-opacity-10 text-success" style="font-size: 20px;">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <a href="{{ route('surat.puskesmas.index') }}" class="small text-success font-weight-bold text-decoration-none">
+                    Kelola Laporan Puskesmas <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
         </div>
@@ -67,6 +114,25 @@
                 <hr class="my-2">
                 <a href="{{ route('surat.askep.index') }}" class="small text-info font-weight-bold text-decoration-none">
                     Kelola Form Askep <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-2">
+            <div class="card border-0 shadow-sm rounded-3 bg-white p-3 h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Surat Rujukan Pasien</span>
+                        <h3 class="font-weight-bold text-danger mb-0 mt-1">{{ $totalRujukan }}</h3>
+                        <small class="text-muted">Rujukan RS / PKM</small>
+                    </div>
+                    <div class="p-3 rounded-circle bg-danger bg-opacity-10 text-danger" style="font-size: 20px;">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <a href="{{ route('surat.rujukan.index') }}" class="small text-danger font-weight-bold text-decoration-none">
+                    Kelola Rujukan <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
         </div>

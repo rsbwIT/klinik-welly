@@ -314,8 +314,35 @@
             <div class="dropdown-divider my-1"></div>
 
             <div class="dropdown-header text-uppercase text-muted font-weight-bold" style="font-size: 10px; letter-spacing: 0.5px;">
-                <i class="fas fa-envelope-open-text mr-1 text-danger"></i> Surat - Surat Medis
+                <i class="fas fa-envelope-open-text mr-1 text-danger"></i> Surat - Surat Medis & Askep
             </div>
+            <a class="dropdown-item py-2 d-flex align-items-center text-dark" id="ctxLinkAskep" href="#">
+                <div class="rounded bg-info text-white p-1 mr-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 11px;">
+                    <i class="fas fa-file-medical-alt"></i>
+                </div>
+                <div>
+                    <div class="font-weight-bold text-info" style="font-size: 13px;">Asuhan Keperawatan (Askep)</div>
+                    <small class="text-muted" style="font-size: 10.5px;">Formulir askep, diagnosa & intervensi</small>
+                </div>
+            </a>
+            <a class="dropdown-item py-2 d-flex align-items-center text-dark" id="ctxLinkObservasi" href="#">
+                <div class="rounded bg-primary text-white p-1 mr-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 11px;">
+                    <i class="fas fa-notes-medical"></i>
+                </div>
+                <div>
+                    <div class="font-weight-bold text-primary" style="font-size: 13px;">Lembar Observasi Khusus</div>
+                    <small class="text-muted" style="font-size: 10.5px;">Observasi TTV, infus & luka berkala</small>
+                </div>
+            </a>
+            <a class="dropdown-item py-2 d-flex align-items-center text-dark" id="ctxLinkBukuMerja" href="#">
+                <div class="rounded bg-warning text-white p-1 mr-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 11px;">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div>
+                    <div class="font-weight-bold text-warning" style="font-size: 13px;">Buku Merja Klien</div>
+                    <small class="text-muted" style="font-size: 10.5px;">Registrasi rekam jejak rawat klien</small>
+                </div>
+            </a>
             <a class="dropdown-item py-2 d-flex align-items-center text-dark" id="ctxLinkSuratSakit" href="#">
                 <div class="rounded bg-danger text-white p-1 mr-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 11px;">
                     <i class="fas fa-bed"></i>
@@ -449,6 +476,9 @@
                 document.getElementById('ctxLinkDetailPasien').href = "{{ url('/detailPasien') }}/" + hashId;
                 document.getElementById('ctxLinkSuratSakit').href = "{{ route('surat.sakit.index') }}?pasien_id=" + hashId;
                 document.getElementById('ctxLinkSuratSehat').href = "{{ route('surat.sehat.index') }}?pasien_id=" + hashId;
+                document.getElementById('ctxLinkAskep').href = "{{ route('surat.askep.index') }}?pasien_id=" + hashId;
+                document.getElementById('ctxLinkObservasi').href = "{{ route('surat.observasi.index') }}?pasien_id=" + hashId;
+                document.getElementById('ctxLinkBukuMerja').href = "{{ route('surat.bukumerja.index') }}?pasien_id=" + hashId;
 
                 // Tandai baris terpilih
                 rows.forEach(r => r.classList.remove('table-primary'));

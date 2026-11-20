@@ -258,7 +258,7 @@
                 <h2>Praktik Mandiri Perawat Luka Welly</h2>
                 <h3>Welly Prestikasari, S.Kep., Ners., M.Kep.</h3>
                 <p>Pelayanan Asuhan Keperawatan, Perawatan Luka Modern, & Layanan Laboratorium Sederhana</p>
-                <p><i class="fab fa-whatsapp text-success"></i> Telp / WA: <strong>+62 813-6864-0404</strong> &bull; Bandar Lampung &bull; <em>"Merawat Luka, Mengembalikan Harapan"</em></p>
+                <p><i class="fab fa-whatsapp text-success"></i> Telp / WA: <strong>0813 6864 0404</strong> &bull; Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran &bull; <em>"Merawat Luka, Mengembalikan Harapan"</em></p>
             </div>
         </div>
 

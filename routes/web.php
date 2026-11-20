@@ -228,6 +228,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/sehat/store', [\App\Http\Controllers\SuratController::class, 'sehatStore'])->name('sehat.store');
         Route::get('/sehat/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'sehatCetak'])->name('sehat.cetak');
         Route::get('/sehat/delete/{id}', [\App\Http\Controllers\SuratController::class, 'sehatDestroy'])->name('sehat.destroy');
+
+        // 7. Lembar Observasi Khusus
+        Route::get('/observasi', [\App\Http\Controllers\SuratController::class, 'observasiIndex'])->name('observasi.index');
+        Route::post('/observasi/store', [\App\Http\Controllers\SuratController::class, 'observasiStore'])->name('observasi.store');
+        Route::get('/observasi/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'observasiCetak'])->name('observasi.cetak');
+        Route::get('/observasi/delete/{id}', [\App\Http\Controllers\SuratController::class, 'observasiDestroy'])->name('observasi.destroy');
+
+        // 8. Form Pelaporan ke Puskesmas
+        Route::get('/laporan-puskesmas', [\App\Http\Controllers\SuratController::class, 'puskesmasIndex'])->name('puskesmas.index');
+        Route::post('/laporan-puskesmas/store', [\App\Http\Controllers\SuratController::class, 'puskesmasStore'])->name('puskesmas.store');
+        Route::get('/laporan-puskesmas/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'puskesmasCetak'])->name('puskesmas.cetak');
+        Route::get('/laporan-puskesmas/delete/{id}', [\App\Http\Controllers\SuratController::class, 'puskesmasDestroy'])->name('puskesmas.destroy');
+
+        // 9. Buku Merja Klien
+        Route::get('/buku-merja', [\App\Http\Controllers\SuratController::class, 'bukuMerjaIndex'])->name('bukumerja.index');
+        Route::post('/buku-merja/store', [\App\Http\Controllers\SuratController::class, 'bukuMerjaStore'])->name('bukumerja.store');
+        Route::get('/buku-merja/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaCetak'])->name('bukumerja.cetak');
+        Route::get('/buku-merja/delete/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaDestroy'])->name('bukumerja.destroy');
     });
 
     // Route untuk Tracker Aktivitas & Pengaturan Hak Akses (Khusus Admin)

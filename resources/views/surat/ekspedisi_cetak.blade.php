@@ -80,7 +80,7 @@
             <h2>BUKU EKSPEDISI SURAT KELUAR</h2>
             <h3>PRAKTIK MANDIRI KEPERAWATAN WELLY</h3>
             <p>Welly Prestikasari, S.Kep., Ners., M.Kep. &bull; Nomor SIPP: 503/36/SIPP/IV.14/VIII/2021</p>
-            <p>Telp/WA: 0857-6843-1011 &bull; Bandar Lampung</p>
+            <p>Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran &bull; Telp. 0813 6864 0404</p>
         </div>
         <img src="{{ asset('img/klinik.jpeg') }}" class="kop-logo-klinik" alt="Logo Klinik">
     </div>

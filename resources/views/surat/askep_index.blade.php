@@ -22,43 +22,55 @@
             </button>
         </div>
         <div class="card-body p-3 bg-white">
+            @if(isset($selectedPasien) && $selectedPasien)
+                <div class="alert alert-info py-2 px-3 mb-3 d-flex justify-content-between align-items-center">
+                    <div>
+                        <i class="fas fa-user-check mr-1"></i> Data Pasien Terpilih dari Rawat Jalan: 
+                        <strong>{{ $selectedPasien->nama_lengkap }}</strong> 
+                        (No. Rawat: <span class="font-monospace fw-bold">{{ $selectedPasien->no_rawat }}</span>, 
+                        No. RM: <span class="font-monospace fw-bold">{{ $selectedPasien->no_rkm_medis }}</span>)
+                    </div>
+                    <a href="{{ route('surat.askep.index') }}" class="btn btn-xs btn-outline-secondary">Reset / Buat Baru</a>
+                </div>
+            @endif
+
             <form action="{{ route('surat.askep.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="pasien_id" id="askep_pasien_id">
-                <input type="hidden" name="no_rawat" id="askep_no_rawat">
+                <input type="hidden" name="pasien_id" id="askep_pasien_id" value="{{ $selectedPasien->id ?? '' }}">
+                <input type="hidden" name="no_rawat" id="askep_no_rawat" value="{{ $selectedPasien->no_rawat ?? '' }}">
 
                 <!-- BAGIAN 1: IDENTITAS KLIEN -->
                 <div class="p-2 mb-2 rounded bg-light border">
                     <span class="small font-weight-bold text-dark text-uppercase d-block mb-2">1. Identitas Klien</span>
                     <div class="row g-2 mb-2">
                         <div class="col-md-3">
-                            <label class="small text-secondary mb-0">Nomor Register :</label>
-                            <input type="text" name="nomor_register" id="askep_nomor_register" class="form-control form-control-sm font-monospace" placeholder="REG-001">
+                            <label class="small text-secondary mb-0">Nomor Rawat :</label>
+                            <input type="text" name="nomor_register" id="askep_nomor_register" class="form-control form-control-sm font-monospace" placeholder="00001/11/11/2026" value="{{ $selectedPasien->no_rawat ?? '' }}">
                         </div>
                         <div class="col-md-4">
                             <label class="small text-secondary mb-0">Nama Klien :</label>
-                            <input type="text" name="nama_klien" id="askep_nama_klien" class="form-control form-control-sm fw-bold" placeholder="Nama Pasien" required>
+                            <input type="text" name="nama_klien" id="askep_nama_klien" class="form-control form-control-sm fw-bold" placeholder="Nama Pasien" value="{{ $selectedPasien->nama_lengkap ?? '' }}" required>
                         </div>
                         <div class="col-md-2">
                             <label class="small text-secondary mb-0">Jenis Kelamin :</label>
                             <select name="jenis_kelamin" id="askep_jenis_kelamin" class="form-select form-select-sm">
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
+                                <option value="Laki-laki" {{ (isset($selectedPasien) && in_array(strtolower($selectedPasien->jenis_kelamin ?? ''), ['laki-laki', 'l'])) ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan" {{ (isset($selectedPasien) && in_array(strtolower($selectedPasien->jenis_kelamin ?? ''), ['perempuan', 'p'])) ? 'selected' : '' }}>Perempuan</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <label class="small text-secondary mb-0">Tanggal Lahir :</label>
-                            <input type="date" name="tanggal_lahir" id="askep_tanggal_lahir" class="form-control form-control-sm">
+                            <input type="date" name="tanggal_lahir" id="askep_tanggal_lahir" class="form-control form-control-sm" value="{{ $selectedPasien->tgl_lahir ?? '' }}">
                         </div>
                     </div>
                     <div class="row g-2">
                         <div class="col-md-8">
                             <label class="small text-secondary mb-0">Alamat :</label>
-                            <input type="text" name="alamat" id="askep_alamat" class="form-control form-control-sm" placeholder="Alamat Klien">
+                            <input type="text" name="alamat" id="askep_alamat" class="form-control form-control-sm" placeholder="Alamat Klien" value="{{ $selectedPasien->alamat_lengkap ?? '' }}">
                         </div>
                         <div class="col-md-4">
                             <label class="small text-secondary mb-0">No. HP :</label>
-                            <input type="text" name="no_hp" id="askep_no_hp" class="form-control form-control-sm" placeholder="08xxxxxxxxxx">
+                            <input type="text" name="no_hp" id="askep_no_hp" class="form-control form-control-sm" placeholder="08xxxxxxxxxx" value="{{ $selectedPasien->no_telpon ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -105,8 +117,15 @@
                             <textarea name="keluhan" rows="2" class="form-control form-control-sm" placeholder="Keluhan utama dan kondisi fisik luka..." required></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label class="small text-secondary mb-0">Diagnosa & Intervensi Keperawatan :</label>
-                            <textarea name="dx_keperawatan" rows="2" class="form-control form-control-sm" placeholder="Dx: Kerusakan integritas jaringan, Intervensi: Perawatan luka modern..."></textarea>
+                            <label class="small text-secondary mb-0">Diagnosa Keperawatan :</label>
+                            <textarea name="dx_keperawatan" rows="2" class="form-control form-control-sm" placeholder="Contoh: Nyeri akut b.d agen pencedera fisik, Kerusakan integritas jaringan..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-12">
+                            <label class="small text-secondary mb-0 fw-bold text-info"><i class="fas fa-tasks mr-1"></i> Intervensi / Rencana Keperawatan :</label>
+                            <textarea name="intervensi" rows="2" class="form-control form-control-sm" placeholder="Rencana intervensi keperawatan (Kaji skala nyeri, teknik relaksasi, perawatan luka steril, kolaborasi analgetik)..."></textarea>
                         </div>
                     </div>
 
@@ -148,10 +167,11 @@
                     <thead class="bg-light">
                         <tr>
                             <th width="100px">Tanggal</th>
-                            <th>No. Register</th>
+                            <th>No. Rawat</th>
                             <th>Nama Klien</th>
                             <th>JK / Umur</th>
                             <th>Pengkajian & Diagnosa</th>
+                            <th>Intervensi</th>
                             <th>Implementasi</th>
                             <th>Evaluasi</th>
                             <th width="90px" class="text-center">Aksi</th>
@@ -165,6 +185,7 @@
                                 <td class="fw-bold text-dark">{{ $row->nama_klien }}</td>
                                 <td>{{ $row->jenis_kelamin }}</td>
                                 <td><span class="d-inline-block text-truncate" style="max-width: 170px;" title="{{ $row->dx_keperawatan }}">{{ $row->dx_keperawatan ?: $row->keluhan }}</span></td>
+                                <td><span class="d-inline-block text-truncate" style="max-width: 150px;" title="{{ $row->intervensi }}">{{ $row->intervensi ?: '-' }}</span></td>
                                 <td><span class="d-inline-block text-truncate" style="max-width: 150px;" title="{{ $row->implementasi }}">{{ $row->implementasi ?: '-' }}</span></td>
                                 <td><span class="d-inline-block text-truncate" style="max-width: 150px;" title="{{ $row->evaluasi }}">{{ $row->evaluasi ?: '-' }}</span></td>
                                 <td class="text-center">
@@ -177,7 +198,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="8" class="text-center py-4 text-muted">Belum ada catatan asuhan keperawatan.</td></tr>
+                            <tr><td colspan="9" class="text-center py-4 text-muted">Belum ada catatan asuhan keperawatan.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

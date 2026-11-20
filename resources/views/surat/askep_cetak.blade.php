@@ -109,7 +109,8 @@
             <h2>FORMULIR ASUHAN KEPERAWATAN</h2>
             <h3>PRAKTIK MANDIRI KEPERAWATAN WELLY</h3>
             <p>Welly Prestikasari, S.Kep., Ners., M.Kep. &bull; Nomor SIPP: 503/36/SIPP/IV.14/VIII/2021</p>
-            <p>Telp/WA: 0857-6843-1011 &bull; Bandar Lampung</p>
+            <p>Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran</p>
+            <p>Telp. 0813 6864 0404</p>
         </div>
         <img src="{{ asset('img/klinik.jpeg') }}" class="kop-logo-klinik" alt="Logo Klinik Welly">
     </div>
@@ -117,9 +118,9 @@
     <div class="section-title">1. IDENTITAS KLIEN</div>
     <table class="tbl-identitas">
         <tr>
-            <td width="180px">Nomor Register</td>
+            <td width="180px">Nomor Rawat</td>
             <td width="10px">:</td>
-            <td><strong>{{ $askep->nomor_register ?: '-' }}</strong></td>
+            <td><strong class="font-monospace">{{ $askep->nomor_register ?: ($askep->no_rawat ?: '-') }}</strong></td>
         </tr>
         <tr>
             <td>Nama Klien</td>
@@ -189,11 +190,11 @@
                     &bull; HR: {{ $askep->hr ?: '-' }} x/mnt<br>
                     &bull; RR: {{ $askep->rr ?: '-' }} x/mnt<br>
                     &bull; Suhu: {{ $askep->suhu ?: '-' }} &deg;C<br><br>
-                    <strong>Dx Keperawatan :</strong><br>{{ $askep->dx_keperawatan ?: '-' }}<br><br>
-                    <strong>Intervensi :</strong><br>{{ $askep->intervensi ?: '-' }}
+                    <strong>Dx Keperawatan :</strong><br>{!! nl2br(e($askep->dx_keperawatan ?: '-')) !!}<br><br>
+                    <strong>Intervensi :</strong><br>{!! nl2br(e($askep->intervensi ?: '-')) !!}
                 </td>
-                <td>{{ $askep->implementasi ?: '-' }}</td>
-                <td>{{ $askep->evaluasi ?: '-' }}</td>
+                <td>{!! nl2br(e($askep->implementasi ?: '-')) !!}</td>
+                <td>{!! nl2br(e($askep->evaluasi ?: '-')) !!}</td>
                 <td style="text-align: center; vertical-align: bottom;">
                     <div style="height: 50px;"></div>
                     <strong>({{ $askep->ttd_nama }})</strong>
@@ -203,7 +204,7 @@
     </table>
 
     <div class="ttd-box">
-        Bandar Lampung, {{ date('d F Y', strtotime($askep->tanggal)) }}<br>
+        Pesawaran, {{ date('d F Y', strtotime($askep->tanggal)) }}<br>
         Perawat Penanggung Jawab,<br>
         <div style="height: 55px;"></div>
         <strong style="text-decoration: underline;">{{ $askep->ttd_nama }}</strong><br>

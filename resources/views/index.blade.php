@@ -39,8 +39,8 @@
             </p>
 
             <div class="d-inline-flex flex-wrap align-items-center justify-content-center py-2 px-3 mb-4 rounded-pill bg-light border text-secondary" style="font-size: 13px;">
-                <span class="mr-3"><i class="fas fa-map-marker-alt text-danger mr-1"></i> Bandar Lampung</span>
-                <span class="mr-3"><i class="fab fa-whatsapp text-success mr-1"></i> +62 813-6864-0404</span>
+                <span class="mr-3"><i class="fas fa-map-marker-alt text-danger mr-1"></i> Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran</span>
+                <span class="mr-3"><i class="fab fa-whatsapp text-success mr-1"></i> 0813 6864 0404</span>
                 <span><i class="fas fa-heartbeat text-info mr-1"></i> <em>"Merawat Luka, Mengembalikan Harapan"</em></span>
             </div>
 
@@ -51,25 +51,25 @@
                 <div class="col-sm-3 col-6 mb-2">
                     <div class="p-2 rounded bg-light border">
                         <div class="text-muted text-uppercase" style="font-size: 11px; font-weight: 700;">Pasien Hari Ini</div>
-                        <div class="h4 font-weight-bold text-info mb-0">{{ $pasienHariIni }}</div>
+                        <div class="h4 font-weight-bold text-info mb-0">{{ $pasienHariIni ?? 0 }}</div>
                     </div>
                 </div>
                 <div class="col-sm-3 col-6 mb-2">
                     <div class="p-2 rounded bg-light border">
                         <div class="text-muted text-uppercase" style="font-size: 11px; font-weight: 700;">Total Kunjungan</div>
-                        <div class="h4 font-weight-bold text-primary mb-0">{{ $totalPasien }}</div>
+                        <div class="h4 font-weight-bold text-primary mb-0">{{ $totalPasien ?? 0 }}</div>
                     </div>
                 </div>
                 <div class="col-sm-3 col-6 mb-2">
                     <div class="p-2 rounded bg-light border">
                         <div class="text-muted text-uppercase" style="font-size: 11px; font-weight: 700;">Master Pasien</div>
-                        <div class="h4 font-weight-bold text-success mb-0">{{ $totalMaster }}</div>
+                        <div class="h4 font-weight-bold text-success mb-0">{{ $totalMaster ?? 0 }}</div>
                     </div>
                 </div>
                 <div class="col-sm-3 col-6 mb-2">
                     <div class="p-2 rounded bg-light border">
                         <div class="text-muted text-uppercase" style="font-size: 11px; font-weight: 700;">Pemeriksaan Lab</div>
-                        <div class="h4 font-weight-bold text-warning mb-0">{{ $totalLab }}</div>
+                        <div class="h4 font-weight-bold text-warning mb-0">{{ $totalLab ?? 0 }}</div>
                     </div>
                 </div>
             </div>
