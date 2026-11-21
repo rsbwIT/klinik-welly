@@ -26,7 +26,7 @@
                 <i class="fas fa-notes-medical mr-1"></i> Observasi Khusus
             </a>
             <a href="{{ route('surat.bukumerja.index') }}" class="btn btn-sm btn-warning font-weight-bold shadow-2xs mr-1 mb-1 text-white">
-                <i class="fas fa-book mr-1"></i> Buku Merja Klien
+                <i class="fas fa-book mr-1"></i> Buku Kerja Klien
             </a>
             <a href="{{ route('surat.puskesmas.index') }}" class="btn btn-sm btn-success font-weight-bold shadow-2xs mr-1 mb-1">
                 <i class="fas fa-hospital mr-1"></i> Laporan Puskesmas
@@ -65,7 +65,7 @@
             <div class="card border-0 shadow-sm rounded-3 bg-white p-3 h-100">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Buku Merja Klien</span>
+                        <span class="text-muted text-uppercase font-weight-bold" style="font-size: 11px;">Buku Kerja Klien</span>
                         <h3 class="font-weight-bold text-warning mb-0 mt-1">{{ $totalBukuMerja }}</h3>
                         <small class="text-muted">Rekam Jejak Evaluasi Klien Luka</small>
                     </div>
@@ -75,7 +75,7 @@
                 </div>
                 <hr class="my-2">
                 <a href="{{ route('surat.bukumerja.index') }}" class="small text-warning font-weight-bold text-decoration-none">
-                    Buka Buku Merja <i class="fas fa-arrow-right ml-1"></i>
+                    Buka Buku Kerja <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </div>
         </div>

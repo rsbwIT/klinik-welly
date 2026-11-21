@@ -688,7 +688,7 @@ class SuratController extends Controller
     }
 
     // ==========================================
-    // 9. BUKU MERJA KLIEN
+    // 9. BUKU KERJA KLIEN
     // ==========================================
     public function bukuMerjaIndex(Request $request)
     {
@@ -742,8 +742,8 @@ class SuratController extends Controller
             'updated_at' => now()
         ]);
 
-        TrackerHelper::log('Persuratan', 'Buku Merja Klien', "Mencatat buku merja klien: {$request->nama_klien}");
-        return redirect()->route('surat.bukumerja.index')->with('success', 'Catatan Buku Merja Klien berhasil disimpan!');
+        TrackerHelper::log('Persuratan', 'Buku Kerja Klien', "Mencatat buku kerja klien: {$request->nama_klien}");
+        return redirect()->route('surat.bukumerja.index')->with('success', 'Catatan Buku Kerja Klien berhasil disimpan!');
     }
 
     public function bukuMerjaCetak($id)
@@ -756,7 +756,7 @@ class SuratController extends Controller
     public function bukuMerjaDestroy($id)
     {
         DB::table('buku_merja_klien')->where('id', $id)->delete();
-        return redirect()->route('surat.bukumerja.index')->with('success', 'Data buku merja klien berhasil dihapus!');
+        return redirect()->route('surat.bukumerja.index')->with('success', 'Data buku kerja klien berhasil dihapus!');
     }
 }
 

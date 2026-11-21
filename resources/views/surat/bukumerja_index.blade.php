@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Buku Merja Klien (Perjalanan & Evaluasi Rawat Luka)')
+@section('title', 'Buku Kerja Klien (Perjalanan & Evaluasi Rawat Luka)')
 @section('hide_content_header', 'true')
 
 @section('konten')
@@ -11,11 +11,11 @@
         </div>
     @endif
 
-    <!-- FORM INPUT BUKU MERJA KLIEN -->
+    <!-- FORM INPUT BUKU KERJA KLIEN -->
     <div class="card shadow-sm border-0 mb-3" style="border-radius: 6px;">
         <div class="card-header bg-white py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
             <span class="font-monospace fw-bold text-primary" style="font-size: 13px;">
-                <i class="fas fa-book-medical mr-1"></i> :: [ BUKU MERJA KLIEN / KARTU KONTROL PERAWATAN LUKA ] ::
+                <i class="fas fa-book-medical mr-1"></i> :: [ BUKU KERJA KLIEN / KARTU KONTROL PERAWATAN LUKA ] ::
             </span>
             <div class="d-flex gap-2">
                 <a href="{{ route('surat.index') }}" class="btn btn-xs btn-outline-secondary">
@@ -115,18 +115,18 @@
 
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-sm btn-primary px-4 fw-bold shadow-sm">
-                        <i class="fas fa-save mr-1"></i> Simpan Buku Merja Klien
+                        <i class="fas fa-save mr-1"></i> Simpan Buku Kerja Klien
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- TABEL REKAP BUKU MERJA -->
+    <!-- TABEL REKAP BUKU KERJA -->
     <div class="card shadow-sm border-0 mb-3" style="border-radius: 6px;">
         <div class="card-header bg-white py-2 px-3 border-bottom d-flex justify-content-between align-items-center">
             <span class="font-weight-bold text-dark" style="font-size: 13px;">
-                <i class="fas fa-list-alt text-primary mr-1"></i> ARSIP BUKU MERJA / KARTU KONTROL KLIEN
+                <i class="fas fa-list-alt text-primary mr-1"></i> ARSIP BUKU KERJA / KARTU KONTROL KLIEN
             </span>
             <form method="GET" class="d-flex align-items-center">
                 <input type="text" name="q" value="{{ request('q') }}" class="form-control form-control-sm mr-1" placeholder="Cari Nama Klien / No. Rawat..." style="width: 220px;">
@@ -165,16 +165,16 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('surat.bukumerja.cetak', $row->id) }}" target="_blank" class="btn btn-xs btn-outline-primary px-2 mr-1" title="Cetak Kartu Merja">
+                                    <a href="{{ route('surat.bukumerja.cetak', $row->id) }}" target="_blank" class="btn btn-xs btn-outline-primary px-2 mr-1" title="Cetak Buku Kerja">
                                         <i class="fas fa-print"></i> Cetak
                                     </a>
-                                    <a href="{{ route('surat.bukumerja.destroy', $row->id) }}" onclick="return confirm('Hapus berkas buku merja ini?')" class="btn btn-xs btn-outline-secondary px-1">
+                                    <a href="{{ route('surat.bukumerja.destroy', $row->id) }}" onclick="return confirm('Hapus berkas buku kerja ini?')" class="btn btn-xs btn-outline-secondary px-1">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="7" class="text-center py-4 text-muted">Belum ada catatan buku merja klien.</td></tr>
+                            <tr><td colspan="7" class="text-center py-4 text-muted">Belum ada catatan buku kerja klien.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

@@ -241,11 +241,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/laporan-puskesmas/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'puskesmasCetak'])->name('puskesmas.cetak');
         Route::get('/laporan-puskesmas/delete/{id}', [\App\Http\Controllers\SuratController::class, 'puskesmasDestroy'])->name('puskesmas.destroy');
 
-        // 9. Buku Merja Klien
-        Route::get('/buku-merja', [\App\Http\Controllers\SuratController::class, 'bukuMerjaIndex'])->name('bukumerja.index');
-        Route::post('/buku-merja/store', [\App\Http\Controllers\SuratController::class, 'bukuMerjaStore'])->name('bukumerja.store');
-        Route::get('/buku-merja/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaCetak'])->name('bukumerja.cetak');
-        Route::get('/buku-merja/delete/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaDestroy'])->name('bukumerja.destroy');
+        // 9. Buku Kerja Klien
+        Route::get('/buku-kerja', [\App\Http\Controllers\SuratController::class, 'bukuMerjaIndex'])->name('bukumerja.index');
+        Route::get('/buku-merja', [\App\Http\Controllers\SuratController::class, 'bukuMerjaIndex']); // alias kompatibilitas
+        Route::post('/buku-kerja/store', [\App\Http\Controllers\SuratController::class, 'bukuMerjaStore'])->name('bukumerja.store');
+        Route::post('/buku-merja/store', [\App\Http\Controllers\SuratController::class, 'bukuMerjaStore']);
+        Route::get('/buku-kerja/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaCetak'])->name('bukumerja.cetak');
+        Route::get('/buku-merja/cetak/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaCetak']);
+        Route::get('/buku-kerja/delete/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaDestroy'])->name('bukumerja.destroy');
+        Route::get('/buku-merja/delete/{id}', [\App\Http\Controllers\SuratController::class, 'bukuMerjaDestroy']);
     });
 
     // Route untuk Tracker Aktivitas & Pengaturan Hak Akses (Khusus Admin)

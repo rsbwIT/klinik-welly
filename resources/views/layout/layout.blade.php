@@ -952,7 +952,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('surat.bukumerja.index') }}" class="nav-link {{ request()->is('surat/buku-merja*') ? 'active' : '' }}">
                                         <i class="fas fa-book nav-icon text-primary"></i>
-                                        <p>Buku Merja Klien</p>
+                                        <p>Buku Kerja Klien</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

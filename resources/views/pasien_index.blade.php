@@ -339,7 +339,7 @@
                     <i class="fas fa-book"></i>
                 </div>
                 <div>
-                    <div class="font-weight-bold text-warning" style="font-size: 13px;">Buku Merja Klien</div>
+                    <div class="font-weight-bold text-warning" style="font-size: 13px;">Buku Kerja Klien</div>
                     <small class="text-muted" style="font-size: 10.5px;">Registrasi rekam jejak rawat klien</small>
                 </div>
             </a>

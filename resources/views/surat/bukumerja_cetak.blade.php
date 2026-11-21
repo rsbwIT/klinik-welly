@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Buku Merja Klien - {{ $merja->nama_klien }}</title>
+    <title>Buku Kerja Klien - {{ $merja->nama_klien }}</title>
     <style>
         @page { size: A4 portrait; margin: 1.2cm 1.5cm; }
         * { box-sizing: border-box; color: #000; }
@@ -28,14 +28,14 @@
 <body>
     <div class="no-print" style="margin-bottom: 12px; text-align: right;">
         <button onclick="window.print()" style="padding: 6px 16px; background: #0284c7; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
-            🖨️ Cetak Buku Merja Klien
+            🖨️ Cetak Buku Kerja Klien
         </button>
     </div>
 
     <div class="header-kop">
         <img src="{{ asset('img/ppni.webp') }}" class="kop-logo-ppni" alt="Logo PPNI">
         <div class="kop-text">
-            <h2>BUKU MERJA KLIEN / KARTU ASUHAN RAWAT LUKA</h2>
+            <h2>BUKU KERJA KLIEN / KARTU ASUHAN RAWAT LUKA</h2>
             <h3>PRAKTIK MANDIRI KEPERAWATAN WELLY</h3>
             <p>Welly Prestikasari, S.Kep., Ners., M.Kep. &bull; Nomor SIPP: 503/36/SIPP/IV.14/VIII/2021</p>
             <p>Dusun 3 RT/RW 015/004, Desa Sidodadi Kec. Teluk Pandan - Kab. Pesawaran &bull; Telp. 0813 6864 0404</p>
